@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Cancer Information System</title>
+    <link rel="icon" type="image/png" href="img/der.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">🩺 Skin Cancer Information System</div>
+                <div class="search-container">
+                    <input type="text" class="search-bar" id="searchBar"
+                        placeholder="Search skin cancer types... (e.g., melanoma, BCC, SCC)">
+                </div>
+                <nav class="nav-links">
+                    <a href="#" class="nav-link" onclick="showSection('home')">Home</a>
+                    <a href="#" class="nav-link" onclick="showSection('statistics')">Statistics</a>
+                    <a href="#" class="nav-link" onclick="showSection('about')">About</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="stats-bar">
+        <div class="container">
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-number">11+</div>
+                    <div class="stat-label">Cancer Types Covered</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">150+</div>
+                    <div class="stat-label">Detailed Symptoms</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">80+</div>
+                    <div class="stat-label">Treatment Options</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Information Access</div>
+                </div>
+            </div>
+        </div>
+        </header>
+
+        <div class="container">
+            <div class="main-content">
+                <div class="filter-section">
+                    <h3 style="color: #ff6b6b; margin-bottom: 1rem;">🔍 Search & Filter</h3>
+                    <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 1rem;">Browse our comprehensive database
+                        of skin cancer types</p>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" onclick="filterByCategory('all')">All Types</button>
+                        <button class="filter-btn" onclick="filterByCategory('Malignant')">Malignant</button>
+                        <button class="filter-btn" onclick="filterByCategory('Precancerous')">Precancerous</button>
+                        <button class="filter-btn" onclick="filterByCategory('Sarcoma')">Sarcomas</button>
+                        <button class="filter-btn" onclick="filterByCategory('Lymphoma')">Lymphomas</button>
+                    </div>
+                    <div class="results-count" id="resultsCount">Showing all 11 cancer types</div>
+                </div>
+
+                <div class="search-results" id="searchResults">
+                    <!-- Cancer cards will be dynamically generated here -->
+                </div>
+
+                <main class="content-area" id="contentArea" style="display: none;">
+                    <div class="no-results" id="noResults">
+                        <h3>🩺 Skin Cancer Information System</h3>
+                        <p>A comprehensive digital platform providing detailed information about various types of skin
+                            cancer. This system serves as an educational resource for medical professionals, students,
+                            patients, and the general public.</p>
+                        <br>
+                        <div style="text-align: left; max-width: 600px; margin: 0 auto;">
+                            <p><strong>📋 System Features:</strong></p>
+                            <p>• Detailed information on 11+ skin cancer types</p>
+                            <p>• Advanced search and filtering capabilities</p>
+                            <p>• Interactive medical imagery</p>
+                            <p>• Evidence-based treatment guidelines</p>
+                            <p>• Prevention and early detection strategies</p>
+                            <p>• Statistical data and research insights</p>
+                            <br>
+                            <p><strong>🔍 Quick Search:</strong> melanoma, basal cell carcinoma, squamous cell
+                                carcinoma, actinic keratosis, merkel cell</p>
+                        </div>
+                    </div>
+                    <!-- Cancer details will be dynamically loaded here -->
+                </main>
+            </div>
+        </div>
+
+        <div class="modal" id="imageModal">
+            <div class="modal-content">
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+                <img id="modalImage" src="" alt="Cancer type image">
+            </div>
+        </div>
+
+        <script>
+            // Comprehensive skin cancer database
+            const skinCancerData = {
+                melanoma: {
+                    name: "Melanoma",
+                    category: "Malignant",
+                    subtitle: "The most serious type of skin cancer",
+                    image: "img/Melanoma.jpg",
+                    causes: [
+                        "Excessive UV radiation from sun or tanning beds",
+                        "Genetic predisposition and family history",
+                        "Multiple atypical moles (dysplastic nevi)",
+                        "Fair skin, light hair, and light eyes",
+                        "History of severe sunburns, especially in childhood"
+                    ],
+                    riskFactors: [
+                        "Age over 50 (though can occur at any age)",
+                        "Male gender (slightly higher risk)",
+                        "Personal history of melanoma or other skin cancers",
+                        "Weakened immune system",
+                        "Living in areas with intense UV radiation"
+                    ],
+                    symptoms: [
+                        "New mole or growth on the skin",
+                        "Changes in existing moles (ABCDE rule)",
+                        "Asymmetry in mole shape",
+                        "Border irregularities",
+                        "Color variations within the same mole",
+                        "Diameter larger than 6mm",
+                        "Evolution or changes over time",
+                        "Itching, bleeding, or crusting"
+                    ],
+                    diagnosis: [
+                        "Visual skin examination by dermatologist",
+                        "Dermoscopy (dermatoscope examination)",
+                        "Biopsy of suspicious lesions",
+                        "Sentinel lymph node biopsy if needed",
+                        "CT, MRI, or PET scans for staging",
+                        "Blood tests including LDH levels"
+                    ],
+                    treatment: [
+                        "Wide excision surgery (primary treatment)",
+                        "Immunotherapy (pembrolizumab, nivolumab)",
+                        "Targeted therapy (BRAF, MEK inhibitors)",
+                        "Radiation therapy in specific cases",
+                        "Chemotherapy (less common now)",
+                        "Clinical trials for advanced cases"
+                    ],
+                    prevention: [
+                        "Use broad-spectrum SPF 30+ sunscreen daily",
+                        "Avoid peak sun hours (10 AM - 4 PM)",
+                        "Wear protective clothing and wide-brimmed hats",
+                        "Seek shade whenever possible",
+                        "Avoid tanning beds completely",
+                        "Regular self-examinations and annual dermatologist visits"
+                    ]
+                },
+                bcc: {
+                    name: "Basal Cell Carcinoma (BCC)",
+                    category: "Malignant",
+                    subtitle: "The most common type of skin cancer",
+                    image: "img/BCC.jpg",
+                    causes: [
+                        "Chronic UV exposure from sun",
+                        "Cumulative sun damage over years",
+                        "Fair skin that burns easily",
+                        "Genetic mutations in skin cells",
+                        "Previous radiation therapy"
+                    ],
+                    riskFactors: [
+                        "Age over 40 (most common after 50)",
+                        "Fair complexion",
+                        "Male gender",
+                        "History of frequent sun exposure",
+                        "Living in sunny climates",
+                        "Outdoor occupation or hobbies",
+                        "Family history of skin cancer"
+                    ],
+                    symptoms: [
+                        "Pearly or waxy bump on skin",
+                        "Flat, flesh-colored or brown scar-like lesion",
+                        "Bleeding or scabbing sore that heals and returns",
+                        "Pink growth with raised edges",
+                        "Open sore that doesn't heal within weeks",
+                        "Shiny nodule that may be pink, red, or white"
+                    ],
+                    diagnosis: [
+                        "Clinical examination by healthcare provider",
+                        "Dermoscopy for detailed visualization",
+                        "Shave or punch biopsy",
+                        "Pathological examination of tissue",
+                        "Mapping of tumor borders if large"
+                    ],
+                    treatment: [
+                        "Mohs micrographic surgery (most effective)",
+                        "Standard excision with margins",
+                        "Electrodesiccation and curettage",
+                        "Cryotherapy (freezing with liquid nitrogen)",
+                        "Topical medications (imiquimod, 5-fluorouracil)",
+                        "Photodynamic therapy",
+                        "Radiation therapy for inoperable cases"
+                    ],
+                    prevention: [
+                        "Daily use of broad-spectrum sunscreen",
+                        "Protective clothing and hats",
+                        "Sunglasses with UV protection",
+                        "Avoid midday sun exposure",
+                        "Regular skin self-examinations",
+                        "Annual skin checks by dermatologist",
+                        "Avoid artificial UV sources"
+                    ]
+                },
+                scc: {
+                    name: "Squamous Cell Carcinoma (SCC)",
+                    category: "Malignant",
+                    subtitle: "Second most common skin cancer type",
+                    image: "img/SCC.jpg",
+                    causes: [
+                        "Prolonged UV radiation exposure",
+                        "HPV (Human Papillomavirus) infection",
+                        "Chronic wounds or scars",
+                        "Chemical exposure (arsenic, tar)",
+                        "Chronic inflammatory conditions",
+                        "Immunosuppression"
+                    ],
+                    riskFactors: [
+                        "Fair skin and light hair",
+                        "Age over 50",
+                        "Male gender",
+                        "Extensive sun exposure history",
+                        "Outdoor workers",
+                        "Previous skin cancer",
+                        "Organ transplant recipients",
+                        "Chronic skin ulcers or burns"
+                    ],
+                    symptoms: [
+                        "Firm, red nodule on skin",
+                        "Flat lesion with scaly, crusted surface",
+                        "Open sore or ulcer that doesn't heal",
+                        "Raised area with central depression",
+                        "Wart-like growth",
+                        "Rough, scaly patch that may bleed",
+                        "Horn-like growth (cutaneous horn)"
+                    ],
+                    diagnosis: [
+                        "Physical examination of the lesion",
+                        "Medical history assessment",
+                        "Biopsy (shave, punch, or incisional)",
+                        "Histopathological analysis",
+                        "Staging if metastasis suspected",
+                        "Imaging studies for advanced cases"
+                    ],
+                    treatment: [
+                        "Surgical excision with clear margins",
+                        "Mohs micrographic surgery",
+                        "Electrodesiccation and curettage",
+                        "Cryosurgery",
+                        "Radiation therapy",
+                        "Topical chemotherapy",
+                        "Immunotherapy for advanced cases",
+                        "Lymph node dissection if spread"
+                    ],
+                    prevention: [
+                        "Sun protection with SPF 30+ sunscreen",
+                        "Protective clothing and wide-brimmed hats",
+                        "Avoid peak UV hours",
+                        "No tanning beds or artificial UV",
+                        "HPV vaccination when appropriate",
+                        "Proper wound care to prevent chronic ulcers",
+                        "Regular skin examinations"
+                    ]
+                },
+                "actinic-keratosis": {
+                    name: "Actinic Keratosis",
+                    category: "Precancerous",
+                    subtitle: "Precancerous skin condition (potential to become SCC)",
+                    image: "img/Actinic.jpg",
+                    causes: [
+                        "Cumulative sun exposure over many years",
+                        "UV radiation damage to skin cells",
+                        "Fair skin with poor tanning ability",
+                        "Genetic predisposition",
+                        "Age-related skin changes"
+                    ],
+                    riskFactors: [
+                        "Age over 40",
+                        "Fair skin, blonde or red hair",
+                        "Light-colored eyes",
+                        "History of frequent sunburns",
+                        "Outdoor lifestyle or occupation",
+                        "Living in sunny climates",
+                        "Weakened immune system"
+                    ],
+                    symptoms: [
+                        "Rough, scaly patches on sun-exposed skin",
+                        "Flat to slightly raised lesions",
+                        "Hard, warty surface",
+                        "Color ranging from pink to red to brown",
+                        "Size from few millimeters to 2-3 cm",
+                        "Tender or burning sensation",
+                        "Better felt than seen initially"
+                    ],
+                    diagnosis: [
+                        "Clinical examination by dermatologist",
+                        "Dermoscopy examination",
+                        "Biopsy if appearance is atypical",
+                        "Histopathological confirmation",
+                        "Photography for monitoring changes"
+                    ],
+                    treatment: [
+                        "Cryotherapy (liquid nitrogen freezing)",
+                        "Topical 5-fluorouracil cream",
+                        "Imiquimod cream (immune modifier)",
+                        "Chemical peels",
+                        "Photodynamic therapy",
+                        "Electrodesiccation and curettage",
+                        "Laser therapy",
+                        "Regular monitoring for changes"
+                    ],
+                    prevention: [
+                        "Rigorous sun protection measures",
+                        "Daily broad-spectrum sunscreen use",
+                        "Protective clothing and accessories",
+                        "Avoid peak sun exposure times",
+                        "Regular dermatological check-ups",
+                        "Self-examination of skin",
+                        "Early treatment of new lesions"
+                    ]
+                },
+                "merkel-cell": {
+                    name: "Merkel Cell Carcinoma",
+                    category: "Malignant",
+                    subtitle: "Rare but aggressive skin cancer",
+                    image: "img/merkel.jpg",
+                    causes: [
+                        "Merkel Cell Polyomavirus (MCPyV) infection",
+                        "Excessive UV radiation exposure",
+                        "Immunosuppression",
+                        "Advanced age",
+                        "Fair skin"
+                    ],
+                    riskFactors: [
+                        "Age over 70",
+                        "Male gender",
+                        "Fair skin",
+                        "Extensive sun exposure",
+                        "Immunocompromised state",
+                        "History of other skin cancers",
+                        "Organ transplant recipients"
+                    ],
+                    symptoms: [
+                        "Fast-growing, painless nodule",
+                        "Firm, flesh-colored to red or blue tumor",
+                        "Dome-shaped or ulcerated appearance",
+                        "Usually on sun-exposed areas",
+                        "Rapid enlargement over weeks to months",
+                        "May resemble a cyst or bug bite initially"
+                    ],
+                    diagnosis: [
+                        "Clinical examination",
+                        "Biopsy with immunohistochemistry",
+                        "Imaging studies (CT, MRI, PET)",
+                        "Sentinel lymph node biopsy",
+                        "MCPyV testing",
+                        "Complete staging workup"
+                    ],
+                    treatment: [
+                        "Wide local excision",
+                        "Sentinel lymph node biopsy",
+                        "Radiation therapy",
+                        "Immunotherapy (avelumab, pembrolizumab)",
+                        "Chemotherapy for advanced disease",
+                        "Multidisciplinary team approach"
+                    ],
+                    prevention: [
+                        "Sun protection measures",
+                        "Regular skin examinations",
+                        "Prompt evaluation of new growths",
+                        "Immune system support",
+                        "Avoid excessive UV exposure",
+                        "Annual dermatology visits for high-risk patients"
+                    ]
+                },
+               
+                "cutaneous-t-cell-lymphoma": {
+                    name: "Cutaneous T-cell Lymphoma (Mycosis Fungoides)",
+                    category: "Lymphoma",
+                    subtitle: "A rare type of lymphoma that primarily affects the skin",
+                    image: "img/cutaneous t-cell.jpg",
+                    causes: [
+                        "Malignant transformation of T-lymphocytes in the skin",
+                        "Exact trigger is unknown but may involve genetic mutations",
+                        "Chronic antigenic stimulation in skin",
+                        "Immunodeficiency conditions",
+                        "Environmental exposures (rarely implicated)"
+                    ],
+                    riskFactors: [
+                        "Age over 50",
+                        "Male gender",
+                        "Weakened immune system",
+                        "Family history of lymphoproliferative disorders",
+                        "Previous long-term immunosuppressive therapy"
+                    ],
+                    symptoms: [
+                        "Persistent, itchy, red patches or plaques",
+                        "Thickened skin areas or tumors in advanced stages",
+                        "Scaling or eczema-like appearance",
+                        "Lesions may progress slowly over years",
+                        "Swelling of nearby lymph nodes in advanced disease"
+                    ],
+                    diagnosis: [
+                        "Skin biopsy with histopathology",
+                        "Immunophenotyping of T-cells",
+                        "Molecular studies for T-cell receptor gene rearrangement",
+                        "Blood tests and imaging for staging",
+                        "Patch, plaque, and tumor assessment"
+                    ],
+                    treatment: [
+                        "Topical corticosteroids and retinoids",
+                        "Phototherapy (UVB or PUVA)",
+                        "Radiation therapy for localized disease",
+                        "Systemic chemotherapy in advanced stages",
+                        "Targeted immunotherapy and clinical trials"
+                    ],
+                    prevention: [
+                        "Regular skin evaluations",
+                        "Early biopsy of persistent or unusual lesions",
+                        "Avoid prolonged immunosuppression if possible",
+                        "Maintain immune health",
+                        "Prompt treatment of infections or skin irritations"
+                    ]
+                },
+                "sebaceous-gland-carcinoma": {
+                    name: "Sebaceous Gland Carcinoma",
+                    category: "Malignant",
+                    subtitle: "Rare aggressive tumor arising from sebaceous glands, often in the eyelid",
+                    image: "img/sebaceous gland.jpg",
+                    causes: [
+                        "Genetic mutations in sebaceous gland cells",
+                        "Potential link to Muir-Torre syndrome",
+                        "Chronic inflammation of sebaceous glands",
+                        "Previous radiation exposure in the region",
+                        "Advanced age"
+                    ],
+                    riskFactors: [
+                        "Age over 60",
+                        "History of Muir-Torre syndrome",
+                        "Immunosuppression",
+                        "Male gender slightly more affected",
+                        "Previous ocular or eyelid radiation"
+                    ],
+                    symptoms: [
+                        "Painless, firm nodule on the eyelid",
+                        "Swelling or thickening of eyelid skin",
+                        "Redness or discoloration around eyelid",
+                        "Loss of eyelashes or abnormal eyelid appearance",
+                        "Occasional ulceration in advanced cases"
+                    ],
+                    diagnosis: [
+                        "Clinical examination by ophthalmologist or dermatologist",
+                        "Biopsy of the lesion",
+                        "Histopathological analysis for sebaceous differentiation",
+                        "Immunohistochemistry to confirm sebaceous origin",
+                        "Imaging if deeper invasion is suspected"
+                    ],
+                    treatment: [
+                        "Surgical excision with wide margins",
+                        "Mohs micrographic surgery for precise removal",
+                        "Radiation therapy for inoperable cases",
+                        "Lymph node evaluation if spread is suspected",
+                        "Regular follow-up to monitor recurrence"
+                    ],
+                    prevention: [
+                        "Early evaluation of persistent eyelid lesions",
+                        "Prompt treatment of chronic eyelid inflammation",
+                        "Regular ophthalmologic and dermatologic check-ups",
+                        "Awareness of family history of Muir-Torre syndrome",
+                        "Protect skin from excessive radiation exposure"
+                    ]
+                },
+                "Angiosarcoma": {
+                    name: 'Angiosarcoma',
+                    category: 'Sarcoma',
+                    subtitle: 'Aggressive cancer of blood or lymph vessels',
+                    image: 'img/angiosarcoma2.jpg',
+                    causes: [
+                        'Chronic lymphedema (Stewart-Treves syndrome)',
+                        'Radiation exposure',
+                        'Genetic predisposition (rare)'
+                    ],
+                    riskFactors: [
+                        'Older age (mostly 60+)',
+                        'History of radiation therapy',
+                        'Chronic lymphedema',
+                        'Male gender slightly more common'
+                    ],
+                    symptoms: [
+                        'Purple or red patches/bruise-like areas on skin',
+                        'Swelling or raised nodules',
+                        'Rapidly enlarging lesions',
+                        'Pain or tenderness in affected area'
+                    ],
+                    diagnosis: [
+                        'Skin biopsy with histopathology',
+                        'Immunohistochemistry (CD31, CD34 markers)',
+                        'Imaging: MRI, CT, or PET scan to check for metastasis'
+                    ],
+                    treatment: [
+                        'Surgical excision with wide margins',
+                        'Radiation therapy (adjuvant)',
+                        'Chemotherapy for advanced disease (paclitaxel, doxorubicin)'
+                    ],
+                    prevention: [
+                        'Minimize chronic lymphedema',
+                        'Monitor irradiated areas for changes',
+                        'Early detection through regular checkups'
+                    ]
+                },
+
+                'Dermatofibrosarcoma Protuberans (DFSP)': {
+                    name: 'Dermatofibrosarcoma Protuberans (DFSP)',
+                    category: 'Sarcoma',
+                    subtitle: 'Slow-growing tumor of dermis',
+                    image: 'img/derma.jpg',
+                    causes: [
+                        'Unknown exact cause',
+                        'Genetic mutation: COL1A1-PDGFB fusion'
+                    ],
+                    riskFactors: [
+                        'Age 20–50 (mostly adults)',
+                        'History of trauma or scars (rare link)'
+                    ],
+                    symptoms: [
+                        'Firm, raised nodules or plaques',
+                        'Usually painless',
+                        'Slow-growing, may remain stable for years',
+                        'May ulcerate in advanced stages'
+                    ],
+                    diagnosis: [
+                        'Skin biopsy with histopathology',
+                        'Immunohistochemistry (CD34 positive)',
+                        'MRI/CT for large or deep tumors'
+                    ],
+                    treatment: [
+                        'Wide local excision or Mohs surgery',
+                        'Radiation therapy in selected cases',
+                        'Targeted therapy (imatinib) for unresectable or recurrent DFSP'
+                    ],
+                    prevention: [
+                        'Regular monitoring of suspicious skin lesions',
+                        'Early biopsy of persistent nodules'
+                    ]
+                },
+
+                'Leiomyosarcoma': {
+                    name: 'Leiomyosarcoma',
+                    category: 'Sarcoma',
+                    subtitle: 'Cancer of smooth muscle cells in skin',
+                    image: 'img/leio.jpg',
+                    causes: [
+                        'Exact cause unknown',
+                        'May arise from pilar (arrector pili) muscles or vascular smooth muscle'
+                    ],
+                    riskFactors: [
+                        'Age 50+',
+                        'Male predominance',
+                        'Radiation exposure (rare link)'
+                    ],
+                    symptoms: [
+                        'Firm, painless nodules on skin',
+                        'Slow-growing, may be red or brown',
+                        'Occasionally tender or ulcerated'
+                    ],
+                    diagnosis: [
+                        'Biopsy and histopathology',
+                        'Immunohistochemistry: SMA, desmin positive',
+                        'Imaging for depth and metastasis (CT, MRI)'
+                    ],
+                    treatment: [
+                        'Surgical excision with wide margins',
+                        'Radiation therapy for high-risk or recurrent lesions',
+                        'Chemotherapy in metastatic cases (doxorubicin-based)'
+                    ],
+                    prevention: [
+                        'Early evaluation of new skin nodules',
+                        'Avoid radiation when possible',
+                        'Regular skin checks'
+                    ]
+
+
+                },
+                 'kaposi-sarcoma': {
+                    name: "Kaposi Sarcoma",
+                    category: 'Sarcoma',
+                    subtitle: "Cancer caused by Human Herpesvirus-8 (HHV-8), often linked with immunosuppression",
+                    image: "img/kapo.jpg",
+                    causes: [
+                        "Infection with Human Herpesvirus-8 (HHV-8)",
+                        "Severely weakened immune system, such as in HIV/AIDS patients",
+                        "Chronic inflammation and immunosuppressive medications",
+                        "Genetic susceptibility and older age",
+                        "History of organ transplantation or chemotherapy"
+                    ],
+                    riskFactors: [
+                        "Immunocompromised state",
+                        "HIV infection or AIDS",
+                        "Older age",
+                        "Male gender (higher incidence in men)",
+                        "Individuals from regions endemic with HHV-8"
+                    ],
+
+                    diagnosis: [
+                        "Physical and dermatologic examination",
+                        "Skin biopsy with histopathology",
+                        "Immunohistochemical staining for CD34",
+                        "Imaging if deeper invasion suspected",
+                        "Genetic testing for characteristic translocation"
+                    ],
+                    treatment: [
+                        "Surgical excision with wide margins",
+                        "Mohs micrographic surgery",
+                        "Radiation therapy for inoperable cases",
+                        "Targeted therapy (imatinib) for advanced disease",
+                        "Regular follow-up to monitor recurrence"
+                    ],
+                    prevention: [
+                        "Early evaluation of persistent skin lesions",
+                        "Regular dermatologic check-ups",
+                        "Prompt treatment of recurrent masses",
+                        "Avoid unnecessary trauma to skin",
+                        "Maintain general skin health"
+                    ]
+                 },
+                    
+               
+            };
+
+            let currentFilter = 'all';
+            let searchQuery = '';
+
+            // Initialize the application
+            function init() {
+                renderCancerCards();
+                setupSearchFunctionality();
+            }
+
+            // Render cancer cards instead of sidebar list
+            function renderCancerCards(searchTerm = '', category = 'all') {
+                const searchResults = document.getElementById('searchResults');
+                const resultsCount = document.getElementById('resultsCount');
+
+                const filtered = Object.keys(skinCancerData).filter(key => {
+                    const cancer = skinCancerData[key];
+                    const matchesSearch = cancer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                        key.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                        cancer.subtitle.toLowerCase().includes(searchTerm.toLowerCase());
+                    const matchesCategory = category === 'all' || cancer.category === category;
+                    return matchesSearch && matchesCategory;
+                });
+
+                filteredResults = filtered;
+
+                searchResults.innerHTML = '';
+
+                if (filtered.length === 0) {
+                    searchResults.innerHTML = `
+                    <div class="cancer-card show" style="grid-column: 1 / -1;">
+                        <div style="text-align: center; padding: 2rem;">
+                            <h3 style="color: #ff6b6b;">No Results Found</h3>
+                            <p>No skin cancer types found for your search criteria.</p>
+                        </div>
+                    </div>
+                `;
+                    resultsCount.textContent = 'No results found';
+                    return;
+                }
+
+                filtered.forEach((key, index) => {
+                    const cancer = skinCancerData[key];
+                    const card = document.createElement('div');
+                    card.className = 'cancer-card';
+                    card.style.animationDelay = `${index * 0.1}s`;
+                    card.onclick = () => showCancerDetails(key);
+
+                    card.innerHTML = `
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">${cancer.name}</div>
+                        </div>
+                        <div class="card-category">${cancer.category}</div>
+                    </div>
+                    <div class="card-subtitle">${cancer.subtitle}</div>
+                    <div class="card-preview">
+                        <div class="card-image">
+                            <img src="${cancer.image}" alt="${cancer.name}" loading="lazy">
+                        </div>
+                        <div class="card-info">
+                            <strong>Key Info:</strong><br>
+                            ${cancer.symptoms.slice(0, 2).join('. ')}.
+                        </div>
+                    </div>
+                `;
+
+                    searchResults.appendChild(card);
+
+                    // Trigger animation
+                    setTimeout(() => {
+                        card.classList.add('show');
+                    }, index * 100);
+                });
+
+                // Update results count
+                const totalCount = Object.keys(skinCancerData).length;
+                if (category === 'all' && !searchTerm) {
+                    resultsCount.textContent = `Showing all ${totalCount} cancer types`;
+                } else {
+                    resultsCount.textContent = `Showing ${filtered.length} of ${totalCount} cancer types`;
+                }
+            }
+
+            // Filter by category
+            function filterByCategory(category) {
+                currentFilter = category;
+
+                // Update active filter button
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                event.target.classList.add('active');
+
+                renderCancerCards(searchQuery, category);
+
+                // Hide detailed view and show cards
+                document.getElementById('contentArea').style.display = 'none';
+                document.getElementById('searchResults').style.display = 'grid';
+            }
+
+            // Setup search functionality
+            function setupSearchFunctionality() {
+                const searchBar = document.getElementById('searchBar');
+
+                searchBar.addEventListener('input', (e) => {
+                    searchQuery = e.target.value.trim();
+                    renderCancerCards(searchQuery, currentFilter);
+
+                    // Hide detailed view when searching and show cards
+                    if (searchQuery) {
+                        document.getElementById('contentArea').style.display = 'none';
+                        document.getElementById('searchResults').style.display = 'grid';
+                    }
+                });
+
+                searchBar.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' && filteredResults.length > 0) {
+                        showCancerDetails(filteredResults[0]);
+                    }
+                });
+            }
+
+            // Show cancer details
+            function showCancerDetails(cancerKey) {
+                const cancer = skinCancerData[cancerKey];
+                if (!cancer) return;
+
+                // Hide search results and show detailed view
+                document.getElementById('searchResults').style.display = 'none';
+                document.getElementById('contentArea').style.display = 'block';
+
+                const contentArea = document.getElementById('contentArea');
+                contentArea.innerHTML = `
+                <div class="cancer-details active">
+                    <div style="margin-bottom: 2rem;">
+                        <button onclick="goBackToResults()" style="background: rgba(255, 107, 107, 0.2); border: 1px solid #ff6b6b; color: #ff6b6b; padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer; margin-bottom: 1rem;">
+                            ← Back to Results
+                        </button>
+                    </div>
+                    
+                    <div class="cancer-header">
+                        <div class="cancer-info">
+                            <h2>${cancer.name}</h2>
+                            <p class="cancer-subtitle">${cancer.subtitle}</p>
+                            <div style="display: inline-block; background: linear-gradient(45deg, #feca57, #ff6b6b); color: #000; padding: 0.5rem 1rem; border-radius: 15px; font-size: 0.9rem; font-weight: 500; margin-top: 0.5rem;">
+                                ${cancer.category}
+                            </div>
+                        </div>
+                        <div class="cancer-image" onclick="openModal('${cancer.image}')">
+                            <img src="${cancer.image}" alt="${cancer.name}" loading="lazy">
+                            <div class="image-overlay">
+                                <p>Click to enlarge</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="details-grid">
+                        <div class="detail-section animate-in">
+                            <h3>🧬 Causes</h3>
+                            <ul>
+                                ${cancer.causes.map(cause => `<li>${cause}</li>`).join('')}
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section animate-in">
+                            <h3>⚠️ Risk Factors</h3>
+                            <ul>
+                                ${cancer.riskFactors.map(factor => `<li>${factor}</li>`).join('')}
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section animate-in">
+                            <h3>🔍 Symptoms</h3>
+                            <ul>
+                                ${cancer.symptoms.map(symptom => `<li>${symptom}</li>`).join('')}
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section animate-in">
+                            <h3>🔬 Diagnosis</h3>
+                            <ul>
+                                ${cancer.diagnosis.map(diag => `<li>${diag}</li>`).join('')}
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section animate-in">
+                            <h3>💊 Treatment</h3>
+                            <ul>
+                                ${cancer.treatment.map(treat => `<li>${treat}</li>`).join('')}
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section animate-in">
+                            <h3>🛡️ Prevention</h3>
+                            <ul>
+                                ${cancer.prevention.map(prev => `<li>${prev}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+                // Add staggered animation delay to sections
+                const sections = contentArea.querySelectorAll('.detail-section');
+                sections.forEach((section, index) => {
+                    section.style.animationDelay = `${index * 0.1}s`;
+                });
+
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // Go back to search results
+            function goBackToResults() {
+                document.getElementById('contentArea').style.display = 'none';
+                document.getElementById('searchResults').style.display = 'grid';
+            }
+
+            // Show different sections of the information system
+            function showSection(section) {
+                // Hide search results and show content area for special sections
+                document.getElementById('searchResults').style.display = 'none';
+                document.getElementById('contentArea').style.display = 'block';
+
+                switch (section) {
+                    case 'home':
+                        goBackToResults();
+                        break;
+                    case 'statistics':
+                        showStatistics();
+                        break;
+                    case 'about':
+                        showAbout();
+                        break;
+                }
+            }
+
+            // Show statistics section
+            function showStatistics() {
+                const contentArea = document.getElementById('contentArea');
+                contentArea.innerHTML = `
+                <div class="cancer-details active">
+                    <div style="margin-bottom: 2rem;">
+                        <button onclick="goBackToResults()" style="background: rgba(255, 107, 107, 0.2); border: 1px solid #ff6b6b; color: #ff6b6b; padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer; margin-bottom: 1rem;">
+                            ← Back to Home
+                        </button>
+                    </div>
+                    
+                    <div class="cancer-header">
+                        <div class="cancer-info">
+                            <h2>📊 Skin Cancer Statistics</h2>
+                            <p class="cancer-subtitle">Global and regional data on skin cancer incidence</p>
+                        </div>
+                    </div>
+                    
+                    <div class="details-grid">
+                        <div class="detail-section animate-in">
+                            <h3>🌍 Global Statistics</h3>
+                            <ul>
+                                <li>Over 3.3 million people treated for skin cancer annually</li>
+                                <li>1 in 5 Americans develop skin cancer by age 70</li>
+                                <li>Melanoma accounts for only 1% of skin cancers but causes majority of deaths</li>
+                                <li>BCC represents 80% of all skin cancer cases</li>
+                                <li>SCC accounts for about 16% of skin cancer cases</li>
+                                <li>Rare skin cancers (sarcomas, lymphomas) make up 3% of cases</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section animate-in">
+                            <h3>📈 Melanoma Facts</h3>
+                            <ul>
+                                <li>Melanoma incidence increasing 2.6% annually</li>
+                                <li>5-year survival rate: 99% when caught early</li>
+                                <li>Drops to 27% when spread to distant organs</li>
+                                <li>More common in men over 50</li>
+                                <li>Average age at diagnosis: 65 years</li>
+                                <li>Thickness is the most important prognostic factor</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section animate-in">
+                            <h3>🏥 Treatment Success Rates</h3>
+                            <ul>
+                                <li>BCC: 95-99% cure rate with proper treatment</li>
+                                <li>SCC: 95% cure rate when caught early</li>
+                                <li>Merkel Cell: 51% five-year survival rate</li>
+                                <li>Kaposi Sarcoma: 85% survival if localized</li>
+                                <li>Early detection increases survival by 90%</li>
+                                <li>Regular screening reduces advanced cases by 63%</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section animate-in">
+                            <h3>☀️ UV Exposure Impact</h3>
+                            <ul>
+                                <li>90% of skin cancers caused by UV radiation</li>
+                                <li>One blistering sunburn doubles melanoma risk</li>
+                                <li>Tanning bed use increases melanoma risk by 75%</li>
+                                <li>UV damage accumulates over lifetime</li>
+                                <li>Daily SPF 15+ reduces skin cancer risk by 40%</li>
+                                <li>Peak UV hours: 10 AM - 4 PM contribute 60% of daily exposure</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section animate-in">
+                            <h3>👥 Demographics</h3>
+                            <ul>
+                                <li>Fair-skinned individuals: 20x higher risk</li>
+                                <li>Men: 1.5x more likely to develop melanoma</li>
+                                <li>Age 65+: Highest incidence rates</li>
+                                <li>Geographic factor: Higher rates near equator</li>
+                                <li>Occupational exposure: Outdoor workers at higher risk</li>
+                                <li>Immunocompromised patients: 10x higher risk for rare cancers</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section animate-in">
+                            <h3>💰 Economic Impact</h3>
+                            <ul>
+                                <li>Annual treatment cost: $8.9 billion globally</li>
+                                <li>Average treatment cost per patient: $25,000-$35,000</li>
+                                <li>Prevention cost: <$100 per person annually</li>
+                                <li>Lost productivity: $3.8 billion yearly</li>
+                                <li>Early detection saves 90% of treatment costs</li>
+                                <li>Rare cancer treatments can exceed $100,000 per patient</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+            }
+
+            // Show about section
+            function showAbout() {
+                const contentArea = document.getElementById('contentArea');
+                contentArea.innerHTML = `
+                <div class="cancer-details active">
+                    <div style="margin-bottom: 2rem;">
+                        <button onclick="goBackToResults()" style="background: rgba(255, 107, 107, 0.2); border: 1px solid #ff6b6b; color: #ff6b6b; padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer; margin-bottom: 1rem;">
+                            ← Back to Home
+                        </button>
+                    </div>
+                    
+                    <div class="cancer-header">
+                        <div class="cancer-info">
+                            <h2>ℹ️ About This System</h2>
+                            <p class="cancer-subtitle">Comprehensive skin cancer information platform</p>
+                        </div>
+                    </div>
+                    
+                    <div class="details-grid">
+                        <div class="detail-section animate-in">
+                            <h3>🎯 System Purpose</h3>
+                            <ul>
+                                <li>Provide comprehensive skin cancer information</li>
+                                <li>Educational resource for patients and healthcare workers</li>
+                                <li>Support early detection and prevention efforts</li>
+                                <li>Facilitate informed medical discussions</li>
+                                <li>Promote skin cancer awareness</li>
+                                <li>Cover both common and rare skin cancer types</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section animate-in">
+                            <h3>📚 Information Sources</h3>
+                            <ul>
+                                <li>American Cancer Society guidelines</li>
+                                <li>National Cancer Institute databases</li>
+                                <li>Dermatology research publications</li>
+                                <li>WHO skin cancer reports</li>
+                                <li>Clinical practice guidelines</li>
+                                <li>Peer-reviewed medical literature</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section animate-in">
+                            <h3>🔧 Technical Features</h3>
+                            <ul>
+                                <li>Responsive design for all devices</li>
+                                <li>Real-time search functionality</li>
+                                <li>Interactive image galleries</li>
+                                <li>Category-based filtering system</li>
+                                <li>Accessible user interface</li>
+                                <li>Card-based information display</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section animate-in">
+                            <h3>🏥 Cancer Categories Covered</h3>
+                            <ul>
+                                <li><strong>Malignant:</strong> Melanoma, BCC, SCC, Merkel Cell, Sebaceous Carcinoma</li>
+                                <li><strong>Precancerous:</strong> Actinic Keratosis</li>
+                                <li><strong>Sarcomas:</strong> Kaposi Sarcoma, Angiosarcoma, DFSP, Leiomyosarcoma</li>
+                                <li><strong>Lymphomas:</strong> Mycosis Fungoides (CTCL)</li>
+                                <li>Covers common (80% of cases) to ultra-rare (<1% of cases)</li>
+                                <li>Includes both primary and secondary skin cancers</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section animate-in">
+                            <h3>👥 Target Users</h3>
+                            <ul>
+                                <li>Medical students and professionals</li>
+                                <li>Patients seeking information</li>
+                                <li>Healthcare educators</li>
+                                <li>Public health researchers</li>
+                                <li>General public for prevention awareness</li>
+                                <li>Dermatology specialists and oncologists</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section animate-in">
+                            <h3>⚠️ Medical Disclaimer</h3>
+                            <ul>
+                                <li>For educational purposes only</li>
+                                <li>Not a substitute for professional medical advice</li>
+                                <li>Always consult healthcare providers</li>
+                                <li>Emergency cases require immediate medical attention</li>
+                                <li>Information updated regularly for accuracy</li>
+                                <li>Diagnostic images are for reference only</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+            }
+
+            // Initialize the application
+            document.addEventListener('DOMContentLoaded', () => {
+                init();
+
+                // Add CSS for keyboard navigation
+                const style = document.createElement('style');
+                style.textContent = `
+                .keyboard-navigation *:focus {
+                    outline: 2px solid #ff6b6b;
+                    outline-offset: 2px;
+                }
+                
+                .cancer-card:focus {
+                    transform: translateY(-5px);
+                    box-shadow: 0 15px 40px rgba(255, 107, 107, 0.3);
+                    border-color: #ff6b6b;
+                }
+
+                @media (max-width: 768px) {
+                    .search-results {
+                        grid-template-columns: 1fr;
+                    }
+                    
+                    .filter-buttons {
+                        justify-content: center;
+                    }
+                    
+                    .cancer-header {
+                        grid-template-columns: 1fr;
+                        text-align: center;
+                    }
+                    
+                    .details-grid {
+                        grid-template-columns: 1fr;
+                    }
+                    
+                    .header-content {
+                        flex-direction: column;
+                    }
+                    
+                    .search-container {
+                        margin: 0;
+                        max-width: 100%;
+                    }
+                }
+            `;
+                document.head.appendChild(style);
+            });
+
+            // Export functions for potential future module system
+            window.SkinCancerInformationSystem = {
+                showCancerDetails,
+                renderCancerCards,
+                filterByCategory,
+                openModal,
+                closeModal,
+                skinCancerData,
+                showSection,
+                goBackToResults
+            };
+            function navigateTo(section) {
+                switch (section) {
+                    case 'home':
+                        goBackToResults();
+                        break;
+                    case 'statistics':
+                        showStatistics();
+                        break;
+                    case 'about':
+                        showAbout();
+                        break;
+                }
+            }
+
+
+
+            // Show statistics section
+            function showStatistics() {
+                const contentArea = document.getElementById('contentArea');
+                contentArea.innerHTML = `
+                <div class="cancer-details active">
+                    <div class="cancer-header">
+                        <div class="cancer-info">
+                            <h2>📊 Skin Cancer Statistics</h2>
+                            <p class="cancer-subtitle">Global and regional data on skin cancer incidence</p>
+                        </div>
+                    </div>
+                    
+                    <div class="details-grid">
+                        <div class="detail-section animate-in">
+                            <h3>🌍 Global Statistics</h3>
+                            <ul>
+                                <li>Over 3.3 million people treated for skin cancer annually</li>
+                                <li>1 in 5 Americans develop skin cancer by age 70</li>
+                                <li>Melanoma accounts for only 1% of skin cancers but causes majority of deaths</li>
+                                <li>BCC represents 80% of all skin cancer cases</li>
+                                <li>SCC accounts for about 16% of skin cancer cases</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section animate-in">
+                            <h3>📈 Melanoma Facts</h3>
+                            <ul>
+                                <li>Melanoma incidence increasing 2.6% annually</li>
+                                <li>5-year survival rate: 99% when caught early</li>
+                                <li>Drops to 27% when spread to distant organs</li>
+                                <li>More common in men over 50</li>
+                                <li>Average age at diagnosis: 65 years</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section animate-in">
+                            <h3>🏥 Treatment Success Rates</h3>
+                            <ul>
+                                <li>BCC: 95-99% cure rate with proper treatment</li>
+                                <li>SCC: 95% cure rate when caught early</li>
+                                <li>Merkel Cell: 51% five-year survival rate</li>
+                                <li>Early detection increases survival by 90%</li>
+                                <li>Regular screening reduces advanced cases by 63%</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section animate-in">
+                            <h3>☀️ UV Exposure Impact</h3>
+                            <ul>
+                                <li>90% of skin cancers caused by UV radiation</li>
+                                <li>One blistering sunburn doubles melanoma risk</li>
+                                <li>Tanning bed use increases melanoma risk by 75%</li>
+                                <li>UV damage accumulates over lifetime</li>
+                                <li>Daily SPF 15+ reduces skin cancer risk by 40%</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section animate-in">
+                            <h3>👥 Demographics</h3>
+                            <ul>
+                                <li>Fair-skinned individuals: 20x higher risk</li>
+                                <li>Men: 1.5x more likely to develop melanoma</li>
+                                <li>Age 65+: Highest incidence rates</li>
+                                <li>Geographic factor: Higher rates near equator</li>
+                                <li>Occupational exposure: Outdoor workers at higher risk</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section animate-in">
+                            <h3>💰 Economic Impact</h3>
+                            <ul>
+                                <li>Annual treatment cost: $8.9 billion globally</li>
+                                <li>Average treatment cost per patient: $25,000-$35,000</li>
+                                <li>Prevention cost: <$100 per person annually</li>
+                                <li>Lost productivity: $3.8 billion yearly</li>
+                                <li>Early detection saves 90% of treatment costs</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+            }
+
+            // Show about section
+            function showAbout() {
+                const contentArea = document.getElementById('contentArea');
+                contentArea.innerHTML = `
+                <div class="cancer-details active">
+                    <div class="cancer-header">
+                        <div class="cancer-info">
+                            <h2>ℹ️ About This System</h2>
+                            <p class="cancer-subtitle">Comprehensive skin cancer information platform</p>
+                        </div>
+                    </div>
+                    
+                    <div class="details-grid">
+                        <div class="detail-section animate-in">
+                            <h3>🎯 System Purpose</h3>
+                            <ul>
+                                <li>Provide comprehensive skin cancer information</li>
+                                <li>Educational resource for patients and healthcare workers</li>
+                                <li>Support early detection and prevention efforts</li>
+                                <li>Facilitate informed medical discussions</li>
+                                <li>Promote skin cancer awareness</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section animate-in">
+                            <h3>📚 Information Sources</h3>
+                            <ul>
+                                <li>American Cancer Society guidelines</li>
+                                <li>National Cancer Institute databases</li>
+                                <li>Dermatology research publications</li>
+                                <li>WHO skin cancer reports</li>
+                                <li>Clinical practice guidelines</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section animate-in">
+                            <h3>🔧 Technical Features</h3>
+                            <ul>
+                                <li>Responsive design for all devices</li>
+                                <li>Real-time search functionality</li>
+                                <li>Interactive image galleries</li>
+                                <li>Comprehensive filtering system</li>
+                                <li>Accessible user interface</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section animate-in">
+                            <h3>👥 Target Users</h3>
+                            <ul>
+                                <li>Medical students and professionals</li>
+                                <li>Patients seeking information</li>
+                                <li>Healthcare educators</li>
+                                <li>Public health researchers</li>
+                                <li>General public for prevention awareness</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section animate-in">
+                            <h3>🔒 Data Privacy</h3>
+                            <ul>
+                                <li>No personal data collection</li>
+                                <li>Local browser storage only</li>
+                                <li>HIPAA-compliant information handling</li>
+                                <li>Anonymous usage analytics</li>
+                                <li>Secure information transmission</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section animate-in">
+                            <h3>⚠️ Medical Disclaimer</h3>
+                            <ul>
+                                <li>For educational purposes only</li>
+                                <li>Not a substitute for professional medical advice</li>
+                                <li>Always consult healthcare providers</li>
+                                <li>Emergency cases require immediate medical attention</li>
+                                <li>Information updated regularly for accuracy</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+            }
+            function showWelcomeMessage() {
+                const contentArea = document.getElementById('contentArea');
+                contentArea.innerHTML = `
+                <div class="no-results show">
+                    <h3>🩺 Welcome to SkinCancer Portal</h3>
+                    <p>Your comprehensive resource for skin cancer information. Search or select a skin cancer type from the sidebar to learn about causes, symptoms, diagnosis, treatment, and prevention strategies.</p>
+                    <br>
+                    <p><strong>Available Cancer Types:</strong></p>
+                    <p>• Melanoma • Basal Cell Carcinoma (BCC) • Squamous Cell Carcinoma (SCC)</p>
+                    <p>• Actinic Keratosis • Merkel Cell Carcinoma</p>
+                </div>
+            `;
+                currentCancer = null;
+                updateActiveItem();
+            }
+
+            // Show no results message
+            function showNoResults(searchTerm) {
+                const contentArea = document.getElementById('contentArea');
+                contentArea.innerHTML = `
+                <div class="no-results show">
+                    <h3>🔍 No Results Found</h3>
+                    <p>No skin cancer types found for "<strong>${searchTerm}</strong>"</p>
+                    <p>Try searching for:</p>
+                    <p>• melanoma • basal cell • squamous cell • BCC • SCC • actinic keratosis • merkel cell</p>
+                </div>
+            `;
+                currentCancer = null;
+                updateActiveItem();
+            }
+
+            // Hide no results message
+            function hideNoResults() {
+                const noResults = document.getElementById('noResults');
+                if (noResults) {
+                    noResults.classList.remove('show');
+                }
+            }
+
+            // Modal functionality for image viewing
+            function openModal(imageSrc) {
+                const modal = document.getElementById('imageModal');
+                const modalImage = document.getElementById('modalImage');
+                modalImage.src = imageSrc;
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal() {
+                const modal = document.getElementById('imageModal');
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+
+            // Close modal when clicking outside
+            document.getElementById('imageModal').addEventListener('click', (e) => {
+                if (e.target.id === 'imageModal') {
+                    closeModal();
+                }
+            });
+
+            // Close modal with escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeModal();
+                }
+            });
+
+            // Add smooth scrolling and focus management
+            document.addEventListener('DOMContentLoaded', () => {
+                // Add focus ring for accessibility
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Tab') {
+                        document.body.classList.add('keyboard-navigation');
+                    }
+                });
+
+                document.addEventListener('mousedown', () => {
+                    document.body.classList.remove('keyboard-navigation');
+                });
+
+                // Add intersection observer for scroll animations
+                const observerOptions = {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                };
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('animate-in');
+                        }
+                    });
+                }, observerOptions);
+
+                // Observe elements that should animate on scroll
+                const observeElements = () => {
+                    const elements = document.querySelectorAll('.detail-section:not(.animate-in)');
+                    elements.forEach(el => observer.observe(el));
+                };
+
+                // Initial observation
+                setTimeout(observeElements, 100);
+
+                // Re-observe when content changes
+                const contentArea = document.getElementById('contentArea');
+                const contentObserver = new MutationObserver(observeElements);
+                contentObserver.observe(contentArea, { childList: true, subtree: true });
+            });
+
+            // Add keyboard navigation for cancer list
+            document.addEventListener('keydown', (e) => {
+                if (!currentCancer && filteredResults.length > 0) return;
+
+                const currentIndex = filteredResults.indexOf(currentCancer);
+                let newIndex = currentIndex;
+
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    newIndex = (currentIndex + 1) % filteredResults.length;
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    newIndex = currentIndex <= 0 ? filteredResults.length - 1 : currentIndex - 1;
+                }
+
+                if (newIndex !== currentIndex && filteredResults[newIndex]) {
+                    showCancerDetails(filteredResults[newIndex]);
+                }
+            });
+
+            // Performance optimization: Debounce search
+            function debounce(func, wait) {
+                let timeout;
+                return function executedFunction(...args) {
+                    const later = () => {
+                        clearTimeout(timeout);
+                        func(...args);
+                    };
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                };
+            }
+
+            // Enhanced search with debouncing
+            function setupEnhancedSearch() {
+                const searchBar = document.getElementById('searchBar');
+                const debouncedSearch = debounce((searchTerm) => {
+                    renderCancerList(searchTerm);
+                    if (searchTerm && filteredResults.length > 0) {
+                        showCancerDetails(filteredResults[0]);
+                    } else if (!searchTerm) {
+                        showWelcomeMessage();
+                    }
+                }, 150);
+
+                searchBar.addEventListener('input', (e) => {
+                    debouncedSearch(e.target.value.trim());
+                });
+            }
+
+            // Initialize the application
+            document.addEventListener('DOMContentLoaded', () => {
+                init();
+                setupEnhancedSearch();
+
+                // Add CSS for keyboard navigation
+                const style = document.createElement('style');
+                style.textContent = `
+                .keyboard-navigation *:focus {
+                    outline: 2px solid #ff6b6b;
+                    outline-offset: 2px;
+                }
+                
+                .cancer-item:focus {
+                    background: rgba(255, 107, 107, 0.2);
+                    transform: translateX(5px);
+                    border-left-color: #ff6b6b;
+                }
+            `;
+                document.head.appendChild(style);
+            });
+
+            // Add service worker for caching (future enhancement)
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    // Service worker registration would go here for offline functionality
+                    console.log('Application loaded successfully');
+                });
+            }
+
+            // Analytics placeholder (would integrate with actual analytics service)
+            function trackSearch(searchTerm) {
+                // Google Analytics or other tracking service integration
+                console.log(`Search performed: ${searchTerm}`);
+            }
+
+            function trackCancerView(cancerType) {
+                // Track which cancer types are viewed most frequently
+                console.log(`Cancer type viewed: ${cancerType}`);
+            }
+
+            // Export functions for potential future module system
+            window.SkinCancerPortal = {
+                showCancerDetails,
+                renderCancerList,
+                openModal,
+                closeModal,
+                skinCancerData
+            };
+        </script>
+</body>
+
+</html>
