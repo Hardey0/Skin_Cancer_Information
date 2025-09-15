@@ -140,7 +140,7 @@
             margin-top: 30px;
         }
 
-        /* Local Cancer Data Cards */
+        /* Enhanced Cancer Data Cards */
         .cancer-card {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
@@ -150,6 +150,7 @@
             transition: all 0.4s ease;
             overflow: hidden;
             backdrop-filter: blur(10px);
+            position: relative;
         }
 
         .cancer-card:hover {
@@ -159,7 +160,7 @@
 
         .cancer-card-header {
             position: relative;
-            height: 200px;
+            height: 250px;
             overflow: hidden;
             cursor: pointer;
         }
@@ -181,7 +182,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(45deg, rgba(102, 126, 234, 0.8), rgba(118, 75, 162, 0.8));
+            background: linear-gradient(45deg, rgba(102, 126, 234, 0.85), rgba(118, 75, 162, 0.85));
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -189,6 +190,12 @@
             color: white;
             text-align: center;
             padding: 20px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .cancer-card:hover .cancer-card-overlay {
+            opacity: 1;
         }
 
         .cancer-card-title {
@@ -205,27 +212,36 @@
         }
 
         .cancer-card-content {
-            padding: 25px;
+            padding: 30px;
             max-height: 0;
             overflow: hidden;
-            transition: all 0.4s ease;
+            transition: all 0.5s ease;
         }
 
         .cancer-card.expanded .cancer-card-content {
-            max-height: 1000px;
+            max-height: 2000px;
+        }
+
+        .cancer-info-grid {
+            display: grid;
+            gap: 25px;
         }
 
         .cancer-section {
-            margin-bottom: 20px;
+            background: rgba(102, 126, 234, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
         }
 
         .cancer-section h3 {
             color: #2c3e50;
             font-size: 1.2rem;
-            margin-bottom: 12px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #667eea;
+            margin-bottom: 15px;
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .cancer-section ul {
@@ -234,11 +250,17 @@
         }
 
         .cancer-section li {
-            padding: 8px 0;
-            padding-left: 20px;
+            padding: 10px 0;
+            padding-left: 25px;
             position: relative;
             color: #34495e;
             font-size: 1rem;
+            line-height: 1.5;
+            border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .cancer-section li:last-child {
+            border-bottom: none;
         }
 
         .cancer-section li:before {
@@ -247,6 +269,7 @@
             font-weight: bold;
             position: absolute;
             left: 0;
+            font-size: 1.2rem;
         }
 
         /* PubMed Result Cards */
@@ -378,14 +401,114 @@
             font-size: 1.1rem;
         }
 
-        /* Responsive Design */
+        .expand-indicator {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .cancer-card.expanded .expand-indicator {
+            transform: rotate(180deg);
+            background: rgba(102, 126, 234, 0.9);
+            color: white;
+        }
+
+        /* Image Modal */
+        .image-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .image-modal .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .image-modal img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            animation: zoomIn 0.3s ease;
+            max-height: 70vh;
+            object-fit: contain;
+        }
+
+        .image-modal .close-btn {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: #ff6b6b;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .image-modal .close-btn:hover {
+            background: #ee5a24;
+            transform: scale(1.1);
+        }
+
+        .image-title {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* Enhanced Mobile Responsiveness */
         @media (max-width: 768px) {
             .container {
-                padding: 15px;
+                padding: 10px;
             }
 
             .header {
-                padding: 35px 20px;
+                padding: 30px 20px;
                 margin-bottom: 25px;
             }
 
@@ -414,20 +537,45 @@
 
             #results {
                 grid-template-columns: 1fr;
-                gap: 25px;
+                gap: 20px;
             }
 
-            .cancer-card, .result-card {
-                margin: 0 5px;
+            .cancer-card-header {
+                height: 200px;
             }
 
             .cancer-card-title {
                 font-size: 1.5rem;
             }
 
+            .cancer-card-content {
+                padding: 20px;
+            }
+
+            .cancer-section {
+                padding: 15px;
+            }
+
+            .result-card {
+                padding: 20px;
+            }
+
             .result-meta {
                 flex-direction: column;
                 align-items: flex-start;
+            }
+
+            .image-modal .modal-content {
+                max-width: 95%;
+                max-height: 85%;
+                padding: 15px;
+            }
+
+            .expand-indicator {
+                width: 40px;
+                height: 40px;
+                bottom: 10px;
+                right: 10px;
             }
         }
 
@@ -442,141 +590,55 @@
 
             #searchBar {
                 padding: 15px 20px;
+                font-size: 14px;
             }
 
             .clear-btn {
                 padding: 15px 25px;
-            }
-
-            .cancer-card-content, .result-card {
-                padding: 20px;
+                font-size: 14px;
             }
 
             .cancer-card-header {
-                height: 150px;
+                height: 180px;
+            }
+
+            .cancer-card-title {
+                font-size: 1.3rem;
+            }
+
+            .cancer-card-content {
+                padding: 15px;
+            }
+
+            .cancer-section {
+                padding: 12px;
+            }
+
+            .cancer-section h3 {
+                font-size: 1.1rem;
+            }
+
+            .cancer-section li {
+                font-size: 0.9rem;
+                padding: 8px 0;
+            }
+
+            .result-card {
+                padding: 15px;
+            }
+
+            .result-title {
+                font-size: 1.2rem;
+            }
+
+            .image-modal .modal-content {
+                padding: 10px;
+            }
+
+            .image-modal img {
+                max-height: 60vh;
             }
         }
-
-        .expand-indicator {
-            position: absolute;
-            bottom: 15px;
-            right: 15px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .cancer-card.expanded .expand-indicator {
-            transform: rotate(180deg);
-        }
-
-        .load-more-btn {
-            display: block;
-            margin: 40px auto;
-            padding: 18px 35px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-            backdrop-filter: blur(10px);
-        }
-
-        .load-more-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
-            background: linear-gradient(135deg, #764ba2, #667eea);
-        }
-
-        .load-more-btn:active {
-            transform: translateY(-1px);
-        }
-        /* ---------- Cancer Card Images ---------- */
-.cancer-card-image {
-  width: 100%;
-  max-height: 200px;
-  object-fit: cover;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.cancer-card-image:hover {
-  transform: scale(1.05);
-}
-
-/* ---------- Image Modal ---------- */
-.image-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2000;
-  animation: fadeIn 0.3s ease;
-}
-
-.image-modal .modal-content {
-  position: relative;
-  max-width: 90%;
-  max-height: 90%;
-}
-
-.image-modal img {
-  width: 100%;
-  height: auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-  animation: zoomIn 0.3s ease;
-}
-
-/* ---------- Close Button ---------- */
-.image-modal .close-btn {
-  position: absolute;
-  top: -15px;
-  right: -15px;
-  background: #fff;
-  color: #333;
-  font-size: 24px;
-  font-weight: bold;
-  border-radius: 50%;
-  padding: 5px 10px;
-  cursor: pointer;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-  transition: background 0.3s ease;
-}
-
-.image-modal .close-btn:hover {
-  background: #f44336;
-  color: #fff;
-}
-
-/* ---------- Animations ---------- */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-@keyframes zoomIn {
-  from { transform: scale(0.8); opacity: 0; }
-  to   { transform: scale(1); opacity: 1; }
-}
-
     </style>
 </head>
 <body>
@@ -617,6 +679,8 @@
         </section>
     </div>
 
+  
 </body>
 <script src="script.js"></script>
 </html>
+                    

@@ -1,234 +1,235 @@
-// ---------- PubMed API Key ----------
-const apiKey = "4be97f1f842961136bfb0cdfcb15d11ace09"; // your key
 
-            const skinCancerData = {
-                melanoma: {
-                    name: "Melanoma",
-                    category: "Malignant",
-                    subtitle: "The most serious type of skin cancer",
-                    image: "img/Melanoma.jpg",
-                    causes: [
-                        "Excessive UV radiation from sun or tanning beds",
-                        "Genetic predisposition and family history",
-                        "Multiple atypical moles (dysplastic nevi)",
-                        "Fair skin, light hair, and light eyes",
-                        "History of severe sunburns, especially in childhood"
-                    ],
-                    riskFactors: [
-                        "Age over 50 (though can occur at any age)",
-                        "Male gender (slightly higher risk)",
-                        "Personal history of melanoma or other skin cancers",
-                        "Weakened immune system",
-                        "Living in areas with intense UV radiation"
-                    ],
-                    symptoms: [
-                        "New mole or growth on the skin",
-                        "Changes in existing moles (ABCDE rule)",
-                        "Asymmetry in mole shape",
-                        "Border irregularities",
-                        "Color variations within the same mole",
-                        "Diameter larger than 6mm",
-                        "Evolution or changes over time",
-                        "Itching, bleeding, or crusting"
-                    ],
-                    diagnosis: [
-                        "Visual skin examination by dermatologist",
-                        "Dermoscopy (dermatoscope examination)",
-                        "Biopsy of suspicious lesions",
-                        "Sentinel lymph node biopsy if needed",
-                        "CT, MRI, or PET scans for staging",
-                        "Blood tests including LDH levels"
-                    ],
-                    treatment: [
-                        "Wide excision surgery (primary treatment)",
-                        "Immunotherapy (pembrolizumab, nivolumab)",
-                        "Targeted therapy (BRAF, MEK inhibitors)",
-                        "Radiation therapy in specific cases",
-                        "Chemotherapy (less common now)",
-                        "Clinical trials for advanced cases"
-                    ],
-                    prevention: [
-                        "Use broad-spectrum SPF 30+ sunscreen daily",
-                        "Avoid peak sun hours (10 AM - 4 PM)",
-                        "Wear protective clothing and wide-brimmed hats",
-                        "Seek shade whenever possible",
-                        "Avoid tanning beds completely",
-                        "Regular self-examinations and annual dermatologist visits"
-                    ]
-                },
-                bcc: {
-                    name: "Basal Cell Carcinoma (BCC)",
-                    category: "Malignant",
-                    subtitle: "The most common type of skin cancer",
-                    image: "img/BCC.jpg",
-                    causes: [
-                        "Chronic UV exposure from sun",
-                        "Cumulative sun damage over years",
-                        "Fair skin that burns easily",
-                        "Genetic mutations in skin cells",
-                        "Previous radiation therapy"
-                    ],
-                    riskFactors: [
-                        "Age over 40 (most common after 50)",
-                        "Fair complexion",
-                        "Male gender",
-                        "History of frequent sun exposure",
-                        "Living in sunny climates",
-                        "Outdoor occupation or hobbies",
-                        "Family history of skin cancer"
-                    ],
-                    symptoms: [
-                        "Pearly or waxy bump on skin",
-                        "Flat, flesh-colored or brown scar-like lesion",
-                        "Bleeding or scabbing sore that heals and returns",
-                        "Pink growth with raised edges",
-                        "Open sore that doesn't heal within weeks",
-                        "Shiny nodule that may be pink, red, or white"
-                    ],
-                    diagnosis: [
-                        "Clinical examination by healthcare provider",
-                        "Dermoscopy for detailed visualization",
-                        "Shave or punch biopsy",
-                        "Pathological examination of tissue",
-                        "Mapping of tumor borders if large"
-                    ],
-                    treatment: [
-                        "Mohs micrographic surgery (most effective)",
-                        "Standard excision with margins",
-                        "Electrodesiccation and curettage",
-                        "Cryotherapy (freezing with liquid nitrogen)",
-                        "Topical medications (imiquimod, 5-fluorouracil)",
-                        "Photodynamic therapy",
-                        "Radiation therapy for inoperable cases"
-                    ],
-                    prevention: [
-                        "Daily use of broad-spectrum sunscreen",
-                        "Protective clothing and hats",
-                        "Sunglasses with UV protection",
-                        "Avoid midday sun exposure",
-                        "Regular skin self-examinations",
-                        "Annual skin checks by dermatologist",
-                        "Avoid artificial UV sources"
-                    ]
-                },
-                scc: {
-                    name: "Squamous Cell Carcinoma (SCC)",
-                    category: "Malignant",
-                    subtitle: "Second most common skin cancer type",
-                    image: "img/SCC.jpg",
-                    causes: [
-                        "Prolonged UV radiation exposure",
-                        "HPV (Human Papillomavirus) infection",
-                        "Chronic wounds or scars",
-                        "Chemical exposure (arsenic, tar)",
-                        "Chronic inflammatory conditions",
-                        "Immunosuppression"
-                    ],
-                    riskFactors: [
-                        "Fair skin and light hair",
-                        "Age over 50",
-                        "Male gender",
-                        "Extensive sun exposure history",
-                        "Outdoor workers",
-                        "Previous skin cancer",
-                        "Organ transplant recipients",
-                        "Chronic skin ulcers or burns"
-                    ],
-                    symptoms: [
-                        "Firm, red nodule on skin",
-                        "Flat lesion with scaly, crusted surface",
-                        "Open sore or ulcer that doesn't heal",
-                        "Raised area with central depression",
-                        "Wart-like growth",
-                        "Rough, scaly patch that may bleed",
-                        "Horn-like growth (cutaneous horn)"
-                    ],
-                    diagnosis: [
-                        "Physical examination of the lesion",
-                        "Medical history assessment",
-                        "Biopsy (shave, punch, or incisional)",
-                        "Histopathological analysis",
-                        "Staging if metastasis suspected",
-                        "Imaging studies for advanced cases"
-                    ],
-                    treatment: [
-                        "Surgical excision with clear margins",
-                        "Mohs micrographic surgery",
-                        "Electrodesiccation and curettage",
-                        "Cryosurgery",
-                        "Radiation therapy",
-                        "Topical chemotherapy",
-                        "Immunotherapy for advanced cases",
-                        "Lymph node dissection if spread"
-                    ],
-                    prevention: [
-                        "Sun protection with SPF 30+ sunscreen",
-                        "Protective clothing and wide-brimmed hats",
-                        "Avoid peak UV hours",
-                        "No tanning beds or artificial UV",
-                        "HPV vaccination when appropriate",
-                        "Proper wound care to prevent chronic ulcers",
-                        "Regular skin examinations"
-                    ]
-                },
-                "actinic-keratosis": {
-                    name: "Actinic Keratosis",
-                    category: "Precancerous",
-                    subtitle: "Precancerous skin condition (potential to become SCC)",
-                    image: "img/Actinic.jpg",
-                    causes: [
-                        "Cumulative sun exposure over many years",
-                        "UV radiation damage to skin cells",
-                        "Fair skin with poor tanning ability",
-                        "Genetic predisposition",
-                        "Age-related skin changes"
-                    ],
-                    riskFactors: [
-                        "Age over 40",
-                        "Fair skin, blonde or red hair",
-                        "Light-colored eyes",
-                        "History of frequent sunburns",
-                        "Outdoor lifestyle or occupation",
-                        "Living in sunny climates",
-                        "Weakened immune system"
-                    ],
-                    symptoms: [
-                        "Rough, scaly patches on sun-exposed skin",
-                        "Flat to slightly raised lesions",
-                        "Hard, warty surface",
-                        "Color ranging from pink to red to brown",
-                        "Size from few millimeters to 2-3 cm",
-                        "Tender or burning sensation",
-                        "Better felt than seen initially"
-                    ],
-                    diagnosis: [
-                        "Clinical examination by dermatologist",
-                        "Dermoscopy examination",
-                        "Biopsy if appearance is atypical",
-                        "Histopathological confirmation",
-                        "Photography for monitoring changes"
-                    ],
-                    treatment: [
-                        "Cryotherapy (liquid nitrogen freezing)",
-                        "Topical 5-fluorouracil cream",
-                        "Imiquimod cream (immune modifier)",
-                        "Chemical peels",
-                        "Photodynamic therapy",
-                        "Electrodesiccation and curettage",
-                        "Laser therapy",
-                        "Regular monitoring for changes"
-                    ],
-                    prevention: [
-                        "Rigorous sun protection measures",
-                        "Daily broad-spectrum sunscreen use",
-                        "Protective clothing and accessories",
-                        "Avoid peak sun exposure times",
-                        "Regular dermatological check-ups",
-                        "Self-examination of skin",
-                        "Early treatment of new lesions"
-                    ]
-                },
-                "merkel-cell": {
+        // PubMed API Key
+        const apiKey = "4be97f1f842961136bfb0cdfcb15d11ace09"; 
+
+        const skinCancerData = {
+            melanoma: {
+                name: "Melanoma",
+                category: "Malignant",
+                subtitle: "The most serious type of skin cancer",
+                image: "img/Melanoma.jpg",
+                causes: [
+                    "Excessive UV radiation from sun or tanning beds",
+                    "Genetic predisposition and family history",
+                    "Multiple atypical moles (dysplastic nevi)",
+                    "Fair skin, light hair, and light eyes",
+                    "History of severe sunburns, especially in childhood"
+                ],
+                riskFactors: [
+                    "Age over 50 (though can occur at any age)",
+                    "Male gender (slightly higher risk)",
+                    "Personal history of melanoma or other skin cancers",
+                    "Weakened immune system",
+                    "Living in areas with intense UV radiation"
+                ],
+                symptoms: [
+                    "New mole or growth on the skin",
+                    "Changes in existing moles (ABCDE rule)",
+                    "Asymmetry in mole shape",
+                    "Border irregularities",
+                    "Color variations within the same mole",
+                    "Diameter larger than 6mm",
+                    "Evolution or changes over time",
+                    "Itching, bleeding, or crusting"
+                ],
+                diagnosis: [
+                    "Visual skin examination by dermatologist",
+                    "Dermoscopy (dermatoscope examination)",
+                    "Biopsy of suspicious lesions",
+                    "Sentinel lymph node biopsy if needed",
+                    "CT, MRI, or PET scans for staging",
+                    "Blood tests including LDH levels"
+                ],
+                treatment: [
+                    "Wide excision surgery (primary treatment)",
+                    "Immunotherapy (pembrolizumab, nivolumab)",
+                    "Targeted therapy (BRAF, MEK inhibitors)",
+                    "Radiation therapy in specific cases",
+                    "Chemotherapy (less common now)",
+                    "Clinical trials for advanced cases"
+                ],
+                prevention: [
+                    "Use broad-spectrum SPF 30+ sunscreen daily",
+                    "Avoid peak sun hours (10 AM - 4 PM)",
+                    "Wear protective clothing and wide-brimmed hats",
+                    "Seek shade whenever possible",
+                    "Avoid tanning beds completely",
+                    "Regular self-examinations and annual dermatologist visits"
+                ]
+            },
+            bcc: {
+                name: "Basal Cell Carcinoma (BCC)",
+                category: "Malignant",
+                subtitle: "The most common type of skin cancer",
+                image: "img/BCC.jpg",
+                causes: [
+                    "Chronic UV exposure from sun",
+                    "Cumulative sun damage over years",
+                    "Fair skin that burns easily",
+                    "Genetic mutations in skin cells",
+                    "Previous radiation therapy"
+                ],
+                riskFactors: [
+                    "Age over 40 (most common after 50)",
+                    "Fair complexion",
+                    "Male gender",
+                    "History of frequent sun exposure",
+                    "Living in sunny climates",
+                    "Outdoor occupation or hobbies",
+                    "Family history of skin cancer"
+                ],
+                symptoms: [
+                    "Pearly or waxy bump on skin",
+                    "Flat, flesh-colored or brown scar-like lesion",
+                    "Bleeding or scabbing sore that heals and returns",
+                    "Pink growth with raised edges",
+                    "Open sore that doesn't heal within weeks",
+                    "Shiny nodule that may be pink, red, or white"
+                ],
+                diagnosis: [
+                    "Clinical examination by healthcare provider",
+                    "Dermoscopy for detailed visualization",
+                    "Shave or punch biopsy",
+                    "Pathological examination of tissue",
+                    "Mapping of tumor borders if large"
+                ],
+                treatment: [
+                    "Mohs micrographic surgery (most effective)",
+                    "Standard excision with margins",
+                    "Electrodesiccation and curettage",
+                    "Cryotherapy (freezing with liquid nitrogen)",
+                    "Topical medications (imiquimod, 5-fluorouracil)",
+                    "Photodynamic therapy",
+                    "Radiation therapy for inoperable cases"
+                ],
+                prevention: [
+                    "Daily use of broad-spectrum sunscreen",
+                    "Protective clothing and hats",
+                    "Sunglasses with UV protection",
+                    "Avoid midday sun exposure",
+                    "Regular skin self-examinations",
+                    "Annual skin checks by dermatologist",
+                    "Avoid artificial UV sources"
+                ]
+            },
+            scc: {
+                name: "Squamous Cell Carcinoma (SCC)",
+                category: "Malignant",
+                subtitle: "Second most common skin cancer type",
+                image: "img/SCC.jpg",
+                causes: [
+                    "Prolonged UV radiation exposure",
+                    "HPV (Human Papillomavirus) infection",
+                    "Chronic wounds or scars",
+                    "Chemical exposure (arsenic, tar)",
+                    "Chronic inflammatory conditions",
+                    "Immunosuppression"
+                ],
+                riskFactors: [
+                    "Fair skin and light hair",
+                    "Age over 50",
+                    "Male gender",
+                    "Extensive sun exposure history",
+                    "Outdoor workers",
+                    "Previous skin cancer",
+                    "Organ transplant recipients",
+                    "Chronic skin ulcers or burns"
+                ],
+                symptoms: [
+                    "Firm, red nodule on skin",
+                    "Flat lesion with scaly, crusted surface",
+                    "Open sore or ulcer that doesn't heal",
+                    "Raised area with central depression",
+                    "Wart-like growth",
+                    "Rough, scaly patch that may bleed",
+                    "Horn-like growth (cutaneous horn)"
+                ],
+                diagnosis: [
+                    "Physical examination of the lesion",
+                    "Medical history assessment",
+                    "Biopsy (shave, punch, or incisional)",
+                    "Histopathological analysis",
+                    "Staging if metastasis suspected",
+                    "Imaging studies for advanced cases"
+                ],
+                treatment: [
+                    "Surgical excision with clear margins",
+                    "Mohs micrographic surgery",
+                    "Electrodesiccation and curettage",
+                    "Cryosurgery",
+                    "Radiation therapy",
+                    "Topical chemotherapy",
+                    "Immunotherapy for advanced cases",
+                    "Lymph node dissection if spread"
+                ],
+                prevention: [
+                    "Sun protection with SPF 30+ sunscreen",
+                    "Protective clothing and wide-brimmed hats",
+                    "Avoid peak UV hours",
+                    "No tanning beds or artificial UV",
+                    "HPV vaccination when appropriate",
+                    "Proper wound care to prevent chronic ulcers",
+                    "Regular skin examinations"
+                ]
+            },
+            "actinic-keratosis": {
+                name: "Actinic Keratosis",
+                category: "Precancerous",
+                subtitle: "Precancerous skin condition (potential to become SCC)",
+                image: "img/Actinic.jpg",
+                causes: [
+                    "Cumulative sun exposure over many years",
+                    "UV radiation damage to skin cells",
+                    "Fair skin with poor tanning ability",
+                    "Genetic predisposition",
+                    "Age-related skin changes"
+                ],
+                riskFactors: [
+                    "Age over 40",
+                    "Fair skin, blonde or red hair",
+                    "Light-colored eyes",
+                    "History of frequent sunburns",
+                    "Outdoor lifestyle or occupation",
+                    "Living in sunny climates",
+                    "Weakened immune system"
+                ],
+                symptoms: [
+                    "Rough, scaly patches on sun-exposed skin",
+                    "Flat to slightly raised lesions",
+                    "Hard, warty surface",
+                    "Color ranging from pink to red to brown",
+                    "Size from few millimeters to 2-3 cm",
+                    "Tender or burning sensation",
+                    "Better felt than seen initially"
+                ],
+                diagnosis: [
+                    "Clinical examination by dermatologist",
+                    "Dermoscopy examination",
+                    "Biopsy if appearance is atypical",
+                    "Histopathological confirmation",
+                    "Photography for monitoring changes"
+                ],
+                treatment: [
+                    "Cryotherapy (liquid nitrogen freezing)",
+                    "Topical 5-fluorouracil cream",
+                    "Imiquimod cream (immune modifier)",
+                    "Chemical peels",
+                    "Photodynamic therapy",
+                    "Electrodesiccation and curettage",
+                    "Laser therapy",
+                    "Regular monitoring for changes"
+                ],
+                prevention: [
+                    "Rigorous sun protection measures",
+                    "Daily broad-spectrum sunscreen use",
+                    "Protective clothing and accessories",
+                    "Avoid peak sun exposure times",
+                    "Regular dermatological check-ups",
+                    "Self-examination of skin",
+                    "Early treatment of new lesions"
+                ]
+            },
+               "merkel-cell": {
                     name: "Merkel Cell Carcinoma",
                     category: "Malignant",
                     subtitle: "Rare but aggressive skin cancer",
@@ -683,247 +684,260 @@ const apiKey = "4be97f1f842961136bfb0cdfcb15d11ace09"; // your key
                         "Regular dermatologic surveillance"
                     ]
                 },
-
-};
-
-// ---------- State Management ----------
-let searchHistory = JSON.parse(localStorage.getItem("cancerSearchHistory") || "[]");
-let currentResults = JSON.parse(sessionStorage.getItem("currentResults") || "[]");
-
-// ---------- Elements ----------
-const searchBar = document.getElementById("searchBar");
-const results = document.getElementById("results");
-const loadingSpinner = document.getElementById("loadingSpinner");
-
-// ---------- Helper Functions ----------
-function saveToStorage() {
-    sessionStorage.setItem("currentResults", JSON.stringify(currentResults));
-    localStorage.setItem("cancerSearchHistory", JSON.stringify(searchHistory));
-}
-
-function clearSearch() {
-    searchBar.value = "";
-    results.innerHTML = `
-        <div class="empty-state">
-            <div class="empty-state-icon">🔍</div>
-            <h3>Ready to Search</h3>
-            <p>Enter a cancer type above to find the latest research articles and detailed information</p>
-        </div>
-    `;
-    currentResults = [];
-    sessionStorage.removeItem("currentResults");
-}
-
-// ---------- Render Functions ----------
-function createCancerCard(data) {
-    return `
-        <div class="cancer-card" onclick="toggleCard(this)">
-            <div class="cancer-card-header">
-                <img src="${data.image}" 
-                     alt="${data.name}" 
-                     class="cancer-card-image" 
-                     data-img="${data.image}" 
-                     data-alt="${data.name}">
-                <div class="cancer-card-overlay">
-                    <h2 class="cancer-card-title">${data.name}</h2>
-                    <p class="cancer-card-subtitle">${data.subtitle}</p>
-                </div>
-                <div class="expand-indicator">▼</div>
-            </div>
-            <div class="cancer-card-content">
-                <div class="cancer-section">
-                    <h3>🔬 Causes</h3>
-                    <ul>${data.causes.map(c => `<li>${c}</li>`).join("")}</ul>
-                </div>
-                <div class="cancer-section">
-                    <h3>⚠️ Risk Factors</h3>
-                    <ul>${data.riskFactors.map(r => `<li>${r}</li>`).join("")}</ul>
-                </div>
-                <div class="cancer-section">
-                    <h3>🩺 Symptoms</h3>
-                    <ul>${data.symptoms.map(s => `<li>${s}</li>`).join("")}</ul>
-                </div>
-                <div class="cancer-section">
-                    <h3>💊 Treatment</h3>
-                    <ul>${data.treatment.map(t => `<li>${t}</li>`).join("")}</ul>
-                </div>
-                <div class="cancer-section">
-                    <h3>🛡️ Prevention</h3>
-                    <ul>${data.prevention.map(p => `<li>${p}</li>`).join("")}</ul>
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-function createResultCard(article) {
-    return `
-        <div class="result-card">
-            <h3 class="result-title">${article.title}</h3>
-            <p class="result-authors"><strong>Authors:</strong> ${article.authors}</p>
-            <div class="result-meta">
-                <span class="result-journal">${article.journal}</span>
-                <span class="result-date">${article.date}</span>
-            </div>
-            <p class="result-summary">${article.summary.slice(0, 300)}${article.summary.length > 300 ? "..." : ""}</p>
-            <a href="https://pubmed.ncbi.nlm.nih.gov/${article.id}/" target="_blank" class="pubmed-link">
-                📖 Read Full Article on PubMed
-            </a>
-        </div>
-    `;
-}
-
-function toggleCard(card) {
-    card.classList.toggle("expanded");
-}
-
-function displayResults(resultsData) {
-    results.innerHTML = "";
-    resultsData.forEach(result => {
-        results.innerHTML += result;
-    });
-
-    // ✅ Add image click listeners for modal view
-    document.querySelectorAll(".cancer-card-image").forEach(img => {
-        img.addEventListener("click", function (e) {
-            e.stopPropagation(); // prevent card toggle
-            openImage(this.dataset.img, this.dataset.alt);
-        });
-    });
-}
-
-// ---------- PubMed API Fetch ----------
-async function fetchArticles(query) {
-    try {
-        loadingSpinner.style.display = "block";
-        results.innerHTML = "";
-
-        // Step 1: Search IDs
-        const searchUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=${encodeURIComponent(
-            query
-        )}&retmode=json&retmax=5&api_key=${apiKey}`;
-        const searchRes = await fetch(searchUrl);
-        const searchData = await searchRes.json();
-        const ids = searchData.esearchresult.idlist;
-
-        if (!ids || ids.length === 0) {
-            results.innerHTML = "<p>No articles found.</p>";
-            loadingSpinner.style.display = "none";
-            return;
-        }
-
-        // Step 2: Fetch Details
-        const fetchUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=${ids.join(
-            ","
-        )}&retmode=xml&rettype=abstract&api_key=${apiKey}`;
-        const fetchRes = await fetch(fetchUrl);
-        const xmlText = await fetchRes.text();
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(xmlText, "text/xml");
-
-        const articles = xmlDoc.getElementsByTagName("PubmedArticle");
-        const pubmedResults = [];
-
-        for (let i = 0; i < articles.length; i++) {
-            const articleNode = articles[i];
-            const id = ids[i];
-            const title = articleNode.getElementsByTagName("ArticleTitle")[0]?.textContent || "No title";
-            const abstract = articleNode.getElementsByTagName("AbstractText")[0]?.textContent || "No abstract available";
-            const journal = articleNode.getElementsByTagName("Title")[0]?.textContent || "Unknown journal";
-            const date = articleNode.getElementsByTagName("PubDate")[0]?.textContent || "Unknown date";
-
-            const authorsNodes = articleNode.getElementsByTagName("Author");
-            let authors = [];
-            for (let j = 0; j < authorsNodes.length; j++) {
-                const lastName = authorsNodes[j].getElementsByTagName("LastName")[0]?.textContent;
-                const foreName = authorsNodes[j].getElementsByTagName("ForeName")[0]?.textContent;
-                if (lastName && foreName) {
-                    authors.push(`${foreName} ${lastName}`);
-                }
             }
-            authors = authors.length > 0 ? authors.join(", ") : "Unknown authors";
+        
 
-            pubmedResults.push(
-                createResultCard({
-                    id,
-                    title,
-                    authors,
-                    journal,
-                    date,
-                    summary: abstract
-                })
-            );
+        // State Management
+        let searchHistory = [];
+        let currentResults = [];
+
+        // Elements
+        const searchBar = document.getElementById("searchBar");
+        const results = document.getElementById("results");
+        const loadingSpinner = document.getElementById("loadingSpinner");
+
+        // Helper Functions
+        function clearSearch() {
+            searchBar.value = "";
+            results.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">🔍</div>
+                    <h3>Ready to Search</h3>
+                    <p>Enter a cancer type above to find the latest research articles and detailed information</p>
+                </div>
+            `;
+            currentResults = [];
         }
 
-        currentResults = currentResults.concat(pubmedResults);
-        displayResults(currentResults);
-        saveToStorage();
-        loadingSpinner.style.display = "none";
-    } catch (err) {
-        console.error("API Error:", err);
-        results.innerHTML = `
-            <div class="result-card">
-                <h3>⚠️ Error Loading Articles</h3>
-                <p>Unable to fetch articles from PubMed at the moment. Please try again later.</p>
-            </div>
-        `;
-        loadingSpinner.style.display = "none";
-    }
-}
+        // Enhanced Cancer Card Creation
+        function createCancerCard(data) {
+            return `
+                <div class="cancer-card" onclick="toggleCard(this)">
+                    <div class="cancer-card-header">
+                        <img src="${data.image}" 
+                             alt="${data.name}" 
+                             class="cancer-card-image" 
+                             onclick="event.stopPropagation(); openImage('${data.image}', '${data.name}')">
+                        <div class="cancer-card-overlay">
+                            <h2 class="cancer-card-title">${data.name}</h2>
+                            <p class="cancer-card-subtitle">${data.subtitle}</p>
+                        </div>
+                        <div class="expand-indicator">▼</div>
+                    </div>
+                    <div class="cancer-card-content">
+                        <div class="cancer-info-grid">
+                            <div class="cancer-section">
+                                <h3>🔬 Causes</h3>
+                                <ul>${data.causes.map(c => `<li>${c}</li>`).join("")}</ul>
+                            </div>
+                            <div class="cancer-section">
+                                <h3>⚠️ Risk Factors</h3>
+                                <ul>${data.riskFactors.map(r => `<li>${r}</li>`).join("")}</ul>
+                            </div>
+                            <div class="cancer-section">
+                                <h3>🩺 Symptoms</h3>
+                                <ul>${data.symptoms.map(s => `<li>${s}</li>`).join("")}</ul>
+                            </div>
+                            <div class="cancer-section">
+                                <h3>🔍 Diagnosis</h3>   
+                                <ul>${data.diagnosis.map(d => `<li>${d}</li>`).join("")}</ul>
+                            </div>
+                            <div class="cancer-section">
+                                <h3>💊 Treatment</h3>
+                                <ul>${data.treatment.map(t => `<li>${t}</li>`).join("")}</ul>
+                            </div>
+                            <div class="cancer-section">
+                                <h3>🛡️ Prevention</h3>
+                                <ul>${data.prevention.map(p => `<li>${p}</li>`).join("")}</ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
 
-// ---------- Search Handler ----------
-function performSearch() {
-    const query = searchBar.value.trim().toLowerCase();
-    if (!query) return;
+        function createResultCard(article) {
+            return `
+                <div class="result-card">
+                    <h3 class="result-title">${article.title}</h3>
+                    <p class="result-authors"><strong>Authors:</strong> ${article.authors}</p>
+                    <div class="result-meta">
+                        <span class="result-journal">${article.journal}</span>
+                        <span class="result-date">${article.date}</span>
+                    </div>
+                    <p class="result-summary">${article.summary.slice(0, 300)}${article.summary.length > 300 ? "..." : ""}</p>
+                    <a href="https://pubmed.ncbi.nlm.nih.gov/${article.id}/" target="_blank" class="pubmed-link">
+                        📖 Read Full Article on PubMed
+                    </a>
+                </div>
+            `;
+        }
 
-    if (!searchHistory.includes(query)) {
-        searchHistory.unshift(query);
-        if (searchHistory.length > 10) searchHistory.pop();
-    }
+        function toggleCard(card) {
+            card.classList.toggle("expanded");
+        }
 
-    currentResults = [];
-    results.innerHTML = "";
+        function displayResults(resultsData) {
+            results.innerHTML = "";
+            resultsData.forEach(result => {
+                results.innerHTML += result;
+            });
+        }
 
-    // Check local data first
-    const localData =
-        skinCancerData[query] ||
-        Object.values(skinCancerData).find(data => data.name.toLowerCase().includes(query));
+        // Enhanced Image Modal
+        function openImage(src, title) {
+            const modal = document.createElement("div");
+            modal.className = "image-modal";
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close-btn">&times;</span>
+                    <img src="${src}" alt="${title}">
+                    <div class="image-title">${title}</div>
+                </div>
+            `;
+            document.body.appendChild(modal);
 
-    if (localData) {
-        const cancerCard = createCancerCard(localData);
-        currentResults.push(cancerCard);
-        results.innerHTML += cancerCard;
+            // Close handlers
+            modal.querySelector(".close-btn").onclick = () => modal.remove();
+            modal.onclick = e => {
+                if (e.target === modal) modal.remove();
+            };
+            
+            // Keyboard close
+            document.addEventListener('keydown', function closeOnEscape(e) {
+                if (e.key === 'Escape') {
+                    modal.remove();
+                    document.removeEventListener('keydown', closeOnEscape);
+                }
+            });
+        }
 
-        // Also fetch PubMed
-        fetchArticles(localData.name);
-    } else {
-        fetchArticles(query);
-    }
+        // PubMed API Fetch
+        async function fetchArticles(query) {
+            try {
+                loadingSpinner.style.display = "block";
+                results.innerHTML = "";
 
-    saveToStorage();
-}
+                // Step 1: Search IDs
+                const searchUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=${encodeURIComponent(
+                    query
+                )}&retmode=json&retmax=5&api_key=${apiKey}`;
+                const searchRes = await fetch(searchUrl);
+                const searchData = await searchRes.json();
+                const ids = searchData.esearchresult.idlist;
 
-// ---------- Event Listeners ----------
-searchBar.addEventListener("keypress", function (e) {
-    if (e.key === "Enter") {
-        performSearch();
-    }
-});
+                if (!ids || ids.length === 0) {
+                    results.innerHTML = `
+                        <div class="result-card">
+                            <h3>No PubMed Articles Found</h3>
+                            <p>No recent articles found for "${query}". Try different search terms.</p>
+                        </div>
+                    `;
+                    loadingSpinner.style.display = "none";
+                    return;
+                }
 
-// ---------- Image Modal ----------
-function openImage(src, alt) {
-    const modal = document.createElement("div");
-    modal.className = "image-modal";
-    modal.innerHTML = `
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <img src="${src}" alt="${alt}">
-        </div>
-    `;
-    document.body.appendChild(modal);
+                // Step 2: Fetch Details
+                const fetchUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=${ids.join(
+                    ","
+                )}&retmode=xml&rettype=abstract&api_key=${apiKey}`;
+                const fetchRes = await fetch(fetchUrl);
+                const xmlText = await fetchRes.text();
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(xmlText, "text/xml");
 
-    modal.querySelector(".close-btn").onclick = () => modal.remove();
-    modal.onclick = e => {
-        if (e.target === modal) modal.remove();
-    };
-}
+                const articles = xmlDoc.getElementsByTagName("PubmedArticle");
+                const pubmedResults = [];
+
+                for (let i = 0; i < articles.length; i++) {
+                    const articleNode = articles[i];
+                    const id = ids[i];
+                    const title = articleNode.getElementsByTagName("ArticleTitle")[0]?.textContent || "No title";
+                    const abstract = articleNode.getElementsByTagName("AbstractText")[0]?.textContent || "No abstract available";
+                    const journal = articleNode.getElementsByTagName("Title")[0]?.textContent || "Unknown journal";
+                    const date = articleNode.getElementsByTagName("PubDate")[0]?.textContent || "Unknown date";
+
+                    const authorsNodes = articleNode.getElementsByTagName("Author");
+                    let authors = [];
+                    for (let j = 0; j < authorsNodes.length; j++) {
+                        const lastName = authorsNodes[j].getElementsByTagName("LastName")[0]?.textContent;
+                        const foreName = authorsNodes[j].getElementsByTagName("ForeName")[0]?.textContent;
+                        if (lastName && foreName) {
+                            authors.push(`${foreName} ${lastName}`);
+                        }
+                    }
+                    authors = authors.length > 0 ? authors.join(", ") : "Unknown authors";
+
+                    pubmedResults.push(
+                        createResultCard({
+                            id,
+                            title,
+                            authors,
+                            journal,
+                            date,
+                            summary: abstract
+                        })
+                    );
+                }
+
+                currentResults = currentResults.concat(pubmedResults);
+                displayResults(currentResults);
+                loadingSpinner.style.display = "none";
+            } catch (err) {
+                console.error("API Error:", err);
+                results.innerHTML = `
+                    <div class="result-card">
+                        <h3>⚠️ Error Loading Articles</h3>
+                        <p>Unable to fetch articles from PubMed at the moment. Please try again later.</p>
+                    </div>
+                `;
+                loadingSpinner.style.display = "none";
+            }
+        }
+
+        // Enhanced Search Handler
+        function performSearch() {
+            const query = searchBar.value.trim().toLowerCase();
+            if (!query) return;
+
+            if (!searchHistory.includes(query)) {
+                searchHistory.unshift(query);
+                if (searchHistory.length > 10) searchHistory.pop();
+            }
+
+            currentResults = [];
+            results.innerHTML = "";
+
+            // Check local data first
+            const localData =
+                skinCancerData[query] ||
+                Object.values(skinCancerData).find(data => 
+                    data.name.toLowerCase().includes(query) ||
+                    query.includes(data.name.toLowerCase().split(' ')[0])
+                );
+
+            if (localData) {
+                const cancerCard = createCancerCard(localData);
+                currentResults.push(cancerCard);
+                displayResults(currentResults);
+
+                // Also fetch PubMed
+                fetchArticles(localData.name);
+            } else {
+                fetchArticles(query);
+            }
+        }
+
+        // Event Listeners
+        searchBar.addEventListener("keypress", function (e) {
+            if (e.key === "Enter") {
+                performSearch();
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-focus search bar on load
+            searchBar.focus();
+        });
+    
